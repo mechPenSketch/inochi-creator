@@ -126,7 +126,8 @@ void incViewportModelConfirmBar() {
 
     igPushStyleVar(ImGuiStyleVar.FramePadding, ImVec2(16, 4));
         if (Drawable node = cast(Drawable)incSelectedNode()) {
-            const(char)* text = incHasDragDrop("_PUPPETNTREE") ? __(" Copy Mesh") : __(" Edit Mesh");
+            const(bool)* hasDragDrop = incHasDragDrop("_PUPPETNTREE");
+            const(char)* text = hasDragDrop ? __(" Copy Mesh") : __(" Edit Mesh");
             
             if (igButton(text, ImVec2(0, 26))) {
                 incVertexEditStartEditing(node);
@@ -154,6 +155,11 @@ void incViewportModelConfirmBar() {
                 // and selects the mesh that you had selected previously
                 // in Model Edit mode.
                 incTooltip(_("Edit Mesh"));
+            }
+
+            if (hasDragDrop && igButton("Merge", ImVec2(0, 26)) && igBeginDragDropTarget()) {
+                incTooltip(_("Merge into Selected Mesh"));
+                igEndDragDropTarget();
             }
         }
     igPopStyleVar();
