@@ -132,14 +132,16 @@ void incViewportModelConfirmBar() {
             if (igButton(text, ImVec2(0, 26))) {
                 incVertexEditStartEditing(node);
             }
+            
+            const(ImGuiPayload)* payload = igAcceptDragDropPayload("_PUPPETNTREE");
+            Drawable payloadDrawable = cast(Drawable)*cast(Node*)payload.Data;
 
             // Allow copying mesh data via drag n drop for now
             if(igBeginDragDropTarget()) {
                 incTooltip(_("Copy Mesh Data"));
                 
-                const(ImGuiPayload)* payload = igAcceptDragDropPayload("_PUPPETNTREE");
                 if (payload !is null) {
-                    if (Drawable payloadDrawable = cast(Drawable)*cast(Node*)payload.Data) {
+                    if (payloadDrawable) {
                         incSetEditMode(EditMode.VertexEdit);
                         incSelectNode(node);
                         incVertexEditSetTarget(node);
@@ -159,6 +161,11 @@ void incViewportModelConfirmBar() {
 
             if (hasDragDrop && igButton("Merge", ImVec2(0, 26)) && igBeginDragDropTarget()) {
                 incTooltip(_("Merge into Selected Mesh"));
+                
+                if (payload !is null) {
+                    if (payloadDrawable) {}
+                }
+
                 igEndDragDropTarget();
             }
         }
