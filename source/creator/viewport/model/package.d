@@ -14,6 +14,7 @@ import creator.widgets.dragdrop;
 import creator.widgets.button;
 import creator.core.input;
 import creator.core;
+import creator.actions.node;
 import creator.viewport.vertex;
 import creator;
 import inochi2d;
@@ -163,7 +164,9 @@ void incViewportModelConfirmBar() {
                 incTooltip(_("Merge into Selected Mesh"));
                 
                 if (payload !is null) {
-                    if (payloadDrawable) {}
+                    if (payloadDrawable) {
+                        incMergeTwoChildrenWithHistory(payloadDrawable, node);
+                    }
                 }
 
                 igEndDragDropTarget();

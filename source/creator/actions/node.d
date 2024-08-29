@@ -396,6 +396,12 @@ void incDeleteChildrenWithHistory(Node[] ns) {
     incActivePuppet().rescanNodes();
 }
 
+/** 
+    Merge one node to another.
+*/
+void incMergeTwoChildrenWithHistory(Node na, Node nb){
+}
+
 /**
     Node value changed action
 */
